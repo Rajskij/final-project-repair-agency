@@ -11,4 +11,7 @@ public class Path {
     public static final String INVOICE_PAGE = "/view/admin_pages/invoice.jsp";
     public static final String TOP_UP_PAGE = "/view/admin_pages/top_up_account.jsp";
     public static final String MAIN_PAGE = "index.jsp";
+    public static final String USER_INVOICE_PAGE = "/view/user_page/user_invoice.jsp";
+    public static final String FEEDBACK_PAGE = "/view/user_page/feedback_page.jsp";
+    public static final String THANK_YOU_PAGE = "/view/user_page/thank_you.jsp";
 }

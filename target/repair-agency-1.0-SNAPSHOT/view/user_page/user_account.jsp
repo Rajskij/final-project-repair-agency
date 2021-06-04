@@ -1,12 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
+
 <html>
 <head>
-    <title>Administrator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    <title>User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
-    <script type="text/javascript" src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
     <style>
         body {
             min-height: 100vh;
@@ -18,56 +24,84 @@
             margin-top: auto;
         }
 
-        .form {
-            float: right;
+        .title {
+            max-width: 50px;
+            word-wrap: break-word;
+            /*overflow: hidden;*/
+            /*text-overflow: ellipsis;*/
         }
     </style>
 </head>
 <body class="container">
 <c:choose>
     <c:when test="${sessionScope.role.equals('USER')}">
-        <header class="d-flex flex-wrap justify-content-end py-3 mb-4 border-bottom">
-            <div class="col-md-3 text-end">
-                <form action="top_up_account" method="post" class="form">
-                    <input type="hidden" name="command" value="topUpAccount">
-                    <input type="submit" value="top up account" class="btn btn-outline-primary me-2">
+        <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
+
+            <div class="d-flex justify-content-between">
+                <h3 class="fw-normal">Your current amount: ${wallet} $</h3>
+            </div>
+            <div class="col-md-3 d-flex justify-content-end">
+                <form action="open-invoice" method="post">
+                    <input type="hidden" name="command" value="openNewInvoice">
+                    <input type="submit" value="Add new invoice" class="btn btn-outline-primary me-2">
+                </form>
+                <form action="/repair" method="post">
+                    <input type="submit" value="Main page" class="btn btn-outline-primary me-2">
+                </form>
+                <form action="repair" method="post">
+                    <input type="hidden" name="command" value="logOut" class="m-r-2">
+                    <input type="submit" value="Log out" class="btn btn-primary me-2">
                 </form>
             </div>
         </header>
-        <h3>Table of invoices</h3>
-        <table class="table table-bordered sortable">
-            <thead>
-            <tr>
-                <th class="title">Id</th>
-                <th class="title">Brand</th>
-                <th class="title">Model</th>
-                <th class="title">Problem description</th>
-                <th class="title">Price</th>
-                <th class="title">Feedback</th>
-                <th class="title">Select invoice</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
+        <c:choose>
+            <c:when test="${requestScope.invoiceList.size() == 0}">
+                <h3>You have no invoice</h3>
+            </c:when>
+            <c:otherwise>
+                <h3>Table of invoices</h3>
+                <table class="table table-bordered sortable">
+                    <thead>
+                    <tr>
+                        <th class="title">Brand</th>
+                        <th class="title">Model</th>
+                        <th class="title">Problem description</th>
+                        <th class="title">Price</th>
+                        <th class="title">Status</th>
+                        <th class="title">Master</th>
+                        <th class="title">Leave feedback</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
 
-                <c:forEach var="invoiceList" items="${invoiceList}">
-            <tr>
-                <td>${invoiceList.id}</td>
-                <td class="title"> ${invoiceList.brand} </td>
-                <td class="title">${invoiceList.model}</td>
-                <td class="title">${invoiceList.description}</td>
-                <td class="title">${invoiceList.price}</td>
-                <td class="title">${invoiceList.feedback}</td>
-                <form action="invoice" method="get">
-                    <input type="hidden" name="invoiceId" value="${invoiceList.id}">
-                    <td class="title"><input type="submit" name="command" value="select"
-                                             class="btn btn-outline-primary me-2"></td>
-                </form>
-
-            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                        <c:forEach var="invoiceList" items="${invoiceList}">
+                    <tr>
+                        <td class="title"> ${invoiceList.brand} </td>
+                        <td class="title">${invoiceList.model}</td>
+                        <td class="title">${invoiceList.description}</td>
+                        <th class="title">${invoiceList.price}</th>
+                        <td class="title">${invoiceList.status}</td>
+                        <td class="title">${invoiceList.engineer}</td>
+                        <td class="title">
+                            <c:choose>
+                                <c:when test="${invoiceList.status.equals('Done')}">
+                                    <form action="feedback" method="get">
+                                        <input type="hidden" name="invoiceBrand" value="${invoiceList.brand}">
+                                        <input type="hidden" name="invoiceModel" value="${invoiceList.model}">
+                                        <input type="hidden" name="invoiceId" value="${invoiceList.id}">
+                                        <input type="hidden" name="command" value="feedback">
+                                        <input type="submit" value="Feedback" class="btn btn-outline-primary me-2">
+                                    </form>
+                                </c:when>
+                            </c:choose>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
         <footer>
             <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
                 © 2021 Copyright:
@@ -75,8 +109,8 @@
             </div>
         </footer>
     </c:when>
-    <c:when test="${!sessionScope.role.equals('ADMIN')}">
-        <h2>Please login as User</h2>
+    <c:when test="${!sessionScope.role.equals('USER')}">
+        <h2>Please login as user</h2>
     </c:when>
 </c:choose>
 </body>

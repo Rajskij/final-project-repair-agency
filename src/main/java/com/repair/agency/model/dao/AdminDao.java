@@ -8,10 +8,11 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AdminDao {
-    private static final Logger logger = Logger.getLogger(UserDao.class.getName());
+    private static final Logger logger = LogManager.getLogger(AdminDao.class.getName());
     private static final String SET_USERS_WALLET = "UPDATE user SET wallet=? WHERE id=?";
     private static final String UPDATE_INVOICE_ENGINEER = "UPDATE invoice SET engineer_id=? WHERE invoice_id=?";
     private static final String UPDATE_INVOICE_PRICE = "UPDATE invoice SET price=? WHERE invoice_id=?";
@@ -33,7 +34,7 @@ public class AdminDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
         } catch (SQLException | ClassNotFoundException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return connection;
     }
@@ -46,7 +47,7 @@ public class AdminDao {
             prepStmt.setInt(2, invoiceId);
             result = prepStmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return result;
     }
@@ -59,7 +60,7 @@ public class AdminDao {
             prepStmt.setInt(2, invoiceId);
             result = prepStmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return result;
     }
@@ -72,7 +73,7 @@ public class AdminDao {
             prepStmt.setInt(2, invoiceId);
             result = prepStmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return result;
     }
@@ -87,7 +88,7 @@ public class AdminDao {
                 invoicesList.add(invoice);
             }
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return invoicesList;
     }
@@ -114,39 +115,9 @@ public class AdminDao {
             invoice.setUser(user);
             invoice.setEngineer(engineer);
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return invoice;
-    }
-
-    public boolean updateInvoiceValues(String price, String status, String engineer, int invoiceId) {
-        boolean result = false;
-        int engineerId = finedEngineerByName(engineer);
-        try (Connection con = getConnection();
-            PreparedStatement prepStmt = con.prepareStatement(UPDATE_INVOICE)) {
-            prepStmt.setBigDecimal(1, new BigDecimal(price));
-            prepStmt.setString(2, status);
-            prepStmt.setInt(3, engineerId);
-            prepStmt.setInt(4, invoiceId);
-            result = prepStmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            logger.severe(e.getMessage());
-        }
-        return result;
-    }
-
-    public int finedEngineerByName(String name) {
-        int id = 0;
-        try (Connection con = getConnection();
-            PreparedStatement prepStmt = con.prepareStatement(FINED_ENGINEER_ID_BY_NAME)) {
-            prepStmt.setString(1, name);
-            ResultSet rs = prepStmt.executeQuery();
-            rs.next();
-            id = rs.getInt("id");
-        } catch (SQLException e) {
-            logger.severe(e.getMessage());
-        }
-        return id;
     }
 
     public List<User> getAllUsers() {
@@ -163,24 +134,25 @@ public class AdminDao {
                 userList.add(user);
             }
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return userList;
     }
 
-    public boolean setUsersWallet(int userId, String walletValue) {
+    public boolean setUsersWallet(String userId, String walletValue) {
         boolean result = false;
 
         try (Connection con = getConnection();
             PreparedStatement prepStmt = con.prepareStatement(SET_USERS_WALLET)) {
             BigDecimal wallet = new BigDecimal(walletValue);
+            int id = Integer.parseInt(userId);
             prepStmt.setBigDecimal(1, wallet);
-            prepStmt.setInt(2, userId);
+            prepStmt.setInt(2, id);
             result = prepStmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         } catch (NumberFormatException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
             return false;
         }
         return result;

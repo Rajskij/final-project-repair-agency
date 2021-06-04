@@ -1,8 +1,6 @@
 package com.repair.agency.model.entity;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class User {
     private int id;

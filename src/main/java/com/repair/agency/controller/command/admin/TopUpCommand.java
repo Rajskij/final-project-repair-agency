@@ -21,7 +21,7 @@ public class TopUpCommand extends Command {
         String editUsersWallet = request.getParameter("usersEditWallet");
 
         if (editUsersWallet != null && usersId != null) {
-           boolean result = adminDao.setUsersWallet(Integer.parseInt(usersId), editUsersWallet);
+           boolean result = adminDao.setUsersWallet(usersId, editUsersWallet);
            wallet = result ? editUsersWallet + ".00"
                    : "input mistake";
         }

@@ -3,16 +3,17 @@ package com.repair.agency.model.dao;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
 import com.repair.agency.model.service.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class EngineerDao {
-    private static final Logger logger = Logger.getLogger(UserDao.class.getName());
+    private static final Logger logger = LogManager.getLogger(AdminDao.class.getName());
     private final String GET_ENGINEERS = "SELECT * FROM user WHERE role = 'ENGINEER'";
-    private final String GET_INVOICES_BY_IS = "SELECT * FROM invoice WHERE engineer_id = ?";
+    private final String GET_INVOICES_BY_EMAIL = "SELECT * FROM invoice WHERE engineer_id IN(SELECT id FROM user WHERE email=?)";
     private final String JDBC_URL = "jdbc:mysql://localhost:3306/repair?useSSL=false";
     private final String JDBC_USERNAME = "root";
     private final String JDBC_PASSWORD = "root";
@@ -24,7 +25,7 @@ public class EngineerDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
         } catch (SQLException | ClassNotFoundException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return connection;
     }
@@ -39,29 +40,29 @@ public class EngineerDao {
                 engineers.add(user);
             }
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return engineers;
     }
 
-    public List<Invoice> getInvoicesById(int engineerId) {
+    public List<Invoice> getInvoicesByEmail(String engineerEmail) {
         List<Invoice> invoiceList = new ArrayList<>();
         try (Connection con = getConnection();
-             PreparedStatement prepStmt = con.prepareStatement(GET_INVOICES_BY_IS)) {
-            prepStmt.setInt(1, engineerId);
+             PreparedStatement prepStmt = con.prepareStatement(GET_INVOICES_BY_EMAIL)) {
+            prepStmt.setString(1, engineerEmail);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
                 Invoice invoice = util.getInvoice(rs);
                 invoiceList.add(invoice);
             }
         } catch (SQLException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return invoiceList;
     }
 
     public static void main(String[] args) {
         EngineerDao engineerDao = new EngineerDao();
-        engineerDao.getInvoicesById(25).forEach(System.out::println);
+        engineerDao.getInvoicesByEmail("master@gmail.com").forEach(System.out::println);
     }
 }

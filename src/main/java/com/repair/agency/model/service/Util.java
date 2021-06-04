@@ -28,6 +28,7 @@ public class Util {
         user.setLogin(rs.getString("login"));
         user.setPassword(rs.getString("password"));
         user.setRole(rs.getString("role"));
+        user.setWallet(rs.getBigDecimal("wallet"));
         user.setEmail(rs.getString("email"));
         return user;
     }

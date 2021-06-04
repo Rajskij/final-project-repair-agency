@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Oops</title>
+    <title>Thank you!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
@@ -28,7 +28,8 @@
         max-width: 700px;
         height: 650px;
         border-radius: 45px;
-        background-color: #a0a0a0;
+        background-color: #f6f6f6;
+        box-shadow: 10px 5px 5px lightgray;
     }
 
     .btn {
@@ -40,7 +41,7 @@
 
     .text-center {
         margin-bottom: 20px;
-        color: #ffffff;
+        color: #565c5c;
     }
 
     .background {
@@ -55,10 +56,10 @@
 </style>
 <div class="background">
     <div class="container">
-        <h1 class="text-center">Oops! something bad happened</h1><br>
-        <img class="oops" src="https://www.pngkit.com/png/full/125-1258059_sorry-cat-cartoon.png">
-        <h4 class="text-center">It looks like something bad happened on this page.</h4>
-        <h4 class="text-center">Please got to main page and try again</h4>
+        <h1 class="text-center">Thanks for your feedback!</h1><br>
+        <img class="oops" src="https://www.pngkey.com/png/detail/85-852828_cat-friendly-properties-happy-cat.png">
+        <h4 class="text-center">Hope to see you again.</h4>
+        <h4 class="text-center">click the button below to return to the main page</h4>
         <a href="/repair/" class="btn btn-primary"> Go back to main page </a>
     </div>
 </div>

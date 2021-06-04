@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
+
 <html>
 <head>
     <title>Login page</title>
@@ -51,19 +55,19 @@
     <form action="account" method="post">
         <img class="mb-4" src="https://w7.pngwing.com/pngs/118/466/png-transparent-maintenance-computer-icons-innovation-repair-angle-service-logo.png"
              alt="" width="100">
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal"><fmt:message key='PleaseSignIn'/></h1>
 
         <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="user@gmail.com">
-            <label for="floatingInput">Email address</label>
+            <label for="floatingInput"><fmt:message key='Email'/></label>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-            <label for="floatingPassword">Password</label>
+            <label for="floatingPassword"><fmt:message key='Password'/></label>
         </div>
 
         <input class="btn btn-primary" type="hidden" name="command" value="account">
-        <input class="w-100 btn btn-lg btn-primary" type="submit" value="Sign in">
+        <input class="w-100 btn btn-lg btn-primary" type="submit" value="<fmt:message key='Sing-in'/>">
         <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
     </form>
 </main>

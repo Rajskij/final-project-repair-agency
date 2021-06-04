@@ -1,12 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
+
 <html>
 <head>
     <title>Administrator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
-    <script type="text/javascript" src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
     <style>
         body {
             min-height: 100vh;
@@ -27,9 +33,12 @@
 <c:choose>
     <c:when test="${sessionScope.role.equals('ENGINEER')}">
         <header class="d-flex flex-wrap justify-content-end py-3 mb-4 border-bottom">
-            <div class="col-md-3 text-end">
-                <form action="/repair" method="post" class="form">
-                    <input type="hidden" name="command" value="backToMain">
+            <div class="col-md-3 d-flex justify-content-end">
+                <form action="/repair" method="post">
+                    <input type="submit" value="Main page" class="btn btn-outline-primary me-2 mx-2">
+                </form>
+                <form action="repair" method="post" class="form">
+                    <input type="hidden" name="command" value="logOut">
                     <input type="submit" value="Log out" class="btn btn-primary me-2">
                 </form>
             </div>
@@ -78,7 +87,7 @@
         </footer>
     </c:when>
     <c:when test="${!sessionScope.role.equals('ENGINEER')}">
-        <h2>Please login as administrator</h2>
+        <h2>Please log in a Master</h2>
     </c:when>
 </c:choose>
 </body>

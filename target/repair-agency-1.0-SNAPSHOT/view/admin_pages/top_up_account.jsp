@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
+
 <html>
 <head>
     <title>Top up account</title>
@@ -102,7 +106,7 @@
             <input type="hidden" name="usersId" value="${currentId}">
             <input type="hidden" name="usersLogin" value="${currentUser}">
             <div class="form-floating">
-                <input type="text" name="usersEditWallet" class="w-75 form-control" id="floatingInput">
+                <input type="number" name="usersEditWallet" class="w-75 form-control" id="floatingInput">
                 <label for="floatingInput">value 00.00</label>
             </div>
             <input class="w-75 btn btn-lg btn-primary" type="submit" value="select">

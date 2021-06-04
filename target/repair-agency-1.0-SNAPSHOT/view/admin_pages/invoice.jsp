@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
 
 <html>
 <head>
@@ -42,7 +45,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.role.equals('ENGINEER')}">
                         <form action="engineerPage" method="post" class="m-r-2">
-                            <input type="hidden" name="command" value="adminPage">
+                            <input type="hidden" name="command" value="engineerPage">
                             <input type="submit" value="back to list" class="btn btn-primary">
                         </form>
                     </c:when>
@@ -67,6 +70,26 @@
                 <td class="title"></td>
             </tr>
             <tr>
+                <th class="title">User wallet</th>
+                <td class="title">${userWallet}$</td>
+                <td class="title">
+                    <c:choose>
+                        <c:when test="${requestScope.userWallet.compareTo(requestScope.invoice.price) == 1
+                        && sessionScope.role.equals('ADMIN')}">
+                            <form action="editWallet" method="post">
+                                <input type="hidden" name="command" value="selectInvoice">
+                                <input type="hidden" name="invoiceId" value="${invoice.id}">
+                                <input type="hidden" name="userLogin" value="${invoice.user}">
+                                <input type="hidden" name="newWallet" value="${requestScope.userWallet.subtract(requestScope.invoice.price)}">
+                                <div class="form-floating d-flex flex-grow-1">
+                                    <input type="submit" value="Pay for services" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </c:when>
+                    </c:choose>
+                </td>
+            </tr>
+            <tr>
                 <th class="title">Brand</th>
                 <td class="title">${invoice.brand}</td>
                 <td class="title"></td>
@@ -83,7 +106,7 @@
             </tr>
             <tr>
                 <th class="title">Price</th>
-                <td class="title">${invoice.price}</td>
+                <td class="title">${invoice.price} $</td>
                 <td>
                     <c:choose>
                         <c:when test="${sessionScope.role.equals('ADMIN')}">
@@ -91,9 +114,9 @@
                                 <input type="hidden" name="command" value="selectInvoice">
                                 <input type="hidden" name="invoiceId" value="${invoice.id}">
                                 <div class="form-floating d-flex flex-grow-1">
-                                    <input name="price" type="number" class="form-control h-25" id="floatingInput">
+                                    <input name="price" type="number" class="form-control" id="floatingInput">
                                     <label for="floatingInput">put price</label>
-                                    <input type="submit" value="Set price" class="h-25 btn btn-primary">
+                                    <input type="submit" value="Set price" class="btn btn-primary">
                                 </div>
                             </form>
                         </c:when>
@@ -128,6 +151,7 @@
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
+                                        <input type="hidden" name="invoiceUser" value="${invoice.user}">
                                         <input class="dropdown-item" type="submit" name="status" value="Paid">
                                     </form>
                                     <form action="editStatus" method="post">
@@ -142,7 +166,7 @@
                         && !requestScope.invoice.status.equals('Canceled')
                         && sessionScope.role.equals('ENGINEER')}">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownStatusButton"
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownStatusButton1"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select status
                                 </button>
@@ -198,8 +222,8 @@
             </div>
         </footer>
     </c:when>
-    <c:when test="${!sessionScope.role.equals('ADMIN')}">
-        <h2>Please login as administrator</h2>
+    <c:when test="${!sessionScope.role.equals('ADMIN') && !sessionScope.role.equals('ENGINEER')}">
+        <h2>Please log in</h2>
     </c:when>
 </c:choose>
 </body>
