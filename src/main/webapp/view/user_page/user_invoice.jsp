@@ -19,7 +19,6 @@
             display: flex;
             flex-direction: column;
         }
-
         footer {
             margin-top: auto;
         }
@@ -32,47 +31,47 @@
             <div class="col-md-3 d-flex justify-content-end">
                 <form action="engineerPage" method="post" class="m-r-2">
                     <input type="hidden" name="command" value="userPage">
-                    <input type="submit" value="back to list" class="btn btn-primary">
+                    <input type="submit" value="<fmt:message key="BackToList"/>" class="btn btn-primary">
                 </form>
             </div>
         </header>
-        <h3>Create invoice</h3>
+        <h3><fmt:message key="CreateInvoice"/></h3>
         <form action="account" method="post">
             <table class="table table-bordered sortable">
                 <tr>
-                    <th class="title">Position</th>
-                    <th class="title">Values</th>
+                    <th class="title"><fmt:message key='Position'/></th>
+                    <th class="title"><fmt:message key='Values'/></th>
                 </tr>
                 <tr>
-                    <th class="title">Brand</th>
+                    <th class="title"><fmt:message key='Brand'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
                             <input name="brand" type="text" class="form-control" id="brandInput">
-                            <label for="brandInput">input your brand</label>
+                            <label for="brandInput"><fmt:message key='InputYourBrand'/></label>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <th class="title">Model</th>
+                    <th class="title"><fmt:message key='Model'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
                             <input name="model" type="text" class="form-control" id="modelInput">
-                            <label for="modelInput">input your model</label>
+                            <label for="modelInput"><fmt:message key='InputYourModel'/></label>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <th class="title">Description</th>
+                    <th class="title"><fmt:message key='Description'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
-                            <input name="description" type="text" class="form-control" id="descriptionInput">
-                            <label for="descriptionInput">input your description</label>
+                            <input name="<fmt:message key=''/>description" type="text" class="form-control" id="descriptionInput">
+                            <label for="descriptionInput"><fmt:message key='InputYourDescription'/></label>
                         </div>
                     </td>
                 </tr>
             </table>
             <input type="hidden" name="command" value="addNewInvoice">
-            <input type="submit" value="Submit" class="btn btn-primary w-25">
+            <input type="submit" value="<fmt:message key='Submit'/>" class="btn btn-primary w-25">
         </form>
         <footer>
             <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">

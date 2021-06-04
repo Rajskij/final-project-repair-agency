@@ -38,38 +38,38 @@
         <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
 
             <div class="d-flex justify-content-between">
-                <h3 class="fw-normal">Your current amount: ${wallet} $</h3>
+                <h3 class="fw-normal"><fmt:message key='YourCurrentAmount'/> ${wallet} $</h3>
             </div>
             <div class="col-md-3 d-flex justify-content-end">
                 <form action="open-invoice" method="post">
                     <input type="hidden" name="command" value="openNewInvoice">
-                    <input type="submit" value="Add new invoice" class="btn btn-outline-primary me-2">
+                    <input type="submit" value="<fmt:message key='AddNewInvoice'/>" class="btn btn-outline-primary me-2">
                 </form>
                 <form action="/repair" method="post">
-                    <input type="submit" value="Main page" class="btn btn-outline-primary me-2">
+                    <input type="submit" value="<fmt:message key='MainPage'/>" class="btn btn-outline-primary me-2">
                 </form>
                 <form action="repair" method="post">
                     <input type="hidden" name="command" value="logOut" class="m-r-2">
-                    <input type="submit" value="Log out" class="btn btn-primary me-2">
+                    <input type="submit" value="<fmt:message key='LogOut'/>" class="btn btn-primary me-2">
                 </form>
             </div>
         </header>
         <c:choose>
             <c:when test="${requestScope.invoiceList.size() == 0}">
-                <h3>You have no invoice</h3>
+                <h3><fmt:message key='YouHaveNoInvoice'/></h3>
             </c:when>
             <c:otherwise>
-                <h3>Table of invoices</h3>
+                <h3><fmt:message key='InvoiceTable'/></h3>
                 <table class="table table-bordered sortable">
                     <thead>
                     <tr>
-                        <th class="title">Brand</th>
-                        <th class="title">Model</th>
-                        <th class="title">Problem description</th>
-                        <th class="title">Price</th>
-                        <th class="title">Status</th>
-                        <th class="title">Master</th>
-                        <th class="title">Leave feedback</th>
+                        <th class="title"><fmt:message key='Brand'/></th>
+                        <th class="title"><fmt:message key='Model'/></th>
+                        <th class="title"><fmt:message key='ProblemDescription'/></th>
+                        <th class="title"><fmt:message key='Price'/></th>
+                        <th class="title"><fmt:message key='Status'/></th>
+                        <th class="title"><fmt:message key='Engineer'/></th>
+                        <th class="title"><fmt:message key='LeaveFeedback'/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,7 +91,7 @@
                                         <input type="hidden" name="invoiceModel" value="${invoiceList.model}">
                                         <input type="hidden" name="invoiceId" value="${invoiceList.id}">
                                         <input type="hidden" name="command" value="feedback">
-                                        <input type="submit" value="Feedback" class="btn btn-outline-primary me-2">
+                                        <input type="submit" value="<fmt:message key='Feedback'/>" class="btn btn-outline-primary me-2">
                                     </form>
                                 </c:when>
                             </c:choose>

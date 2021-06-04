@@ -55,12 +55,12 @@
 </style>
 <div class="background">
     <div class="container">
-        <h1 class="text-center">Incorrect Login or Password.</h1><br>
+        <h1 class="text-center"><fmt:message key='IncorrectLoginOrPassword'/></h1><br>
         <img class="oops" src="https://www.pngkit.com/png/full/125-1258059_sorry-cat-cartoon.png">
-        <h4 class="text-center">Please try again</h4>
+        <h4 class="text-center"><fmt:message key="PleaseTryAgain"/></h4>
         <form action="verification" method="get">
             <input type="hidden" name="command" value="login">
-            <input type="submit" class="btn btn-primary" value="tap to get back">
+            <input type="submit" class="btn btn-primary" value="<fmt:message key="TapToGetBack"/>">
         </form>
     </div>
 </div>

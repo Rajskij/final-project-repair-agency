@@ -6,11 +6,8 @@ import com.repair.agency.controller.command.user.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class CommandContainer {
-    private static final Logger log = Logger.getLogger(String.valueOf(CommandContainer.class));
-
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {

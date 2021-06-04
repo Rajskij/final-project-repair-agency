@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="language"/>
+
 <html>
 <head>
     <title>Oops</title>
@@ -51,11 +56,11 @@
 </style>
 <div class="background">
     <div class="container">
-        <h1 class="text-center">Oops! something bad happened</h1><br>
+        <h1 class="text-center"><fmt:message key="Oops"/></h1><br>
         <img class="oops" src="https://www.pngkit.com/png/full/125-1258059_sorry-cat-cartoon.png">
-        <h4 class="text-center">It looks like something bad happened on this page.</h4>
-        <h4 class="text-center">Please got to main page and try again</h4>
-        <a href="/repair/" class="btn btn-primary"> Go back to main page </a>
+        <h4 class="text-center"><fmt:message key="SomethingBadHappened"/></h4>
+        <h4 class="text-center"><fmt:message key="PleaseGoToMainPage"/></h4>
+        <a href="/repair/" class="btn btn-primary"><fmt:message key="GoBackToMain"/></a>
     </div>
 </div>
 </body>

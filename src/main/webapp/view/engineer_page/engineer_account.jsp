@@ -19,11 +19,9 @@
             display: flex;
             flex-direction: column;
         }
-
         footer {
             margin-top: auto;
         }
-
         .form {
             float: right;
         }
@@ -35,30 +33,29 @@
         <header class="d-flex flex-wrap justify-content-end py-3 mb-4 border-bottom">
             <div class="col-md-3 d-flex justify-content-end">
                 <form action="/repair" method="post">
-                    <input type="submit" value="Main page" class="btn btn-outline-primary me-2 mx-2">
+                    <input type="submit" value="<fmt:message key='MainPage'/>" class="btn btn-outline-primary me-2 mx-2">
                 </form>
                 <form action="repair" method="post" class="form">
                     <input type="hidden" name="command" value="logOut">
-                    <input type="submit" value="Log out" class="btn btn-primary me-2">
+                    <input type="submit" value="<fmt:message key='LogOut'/>" class="btn btn-primary me-2">
                 </form>
             </div>
         </header>
-        <h3>Table of invoices</h3>
+        <h3><fmt:message key='InvoiceTable'/></h3>
         <table class="table table-bordered sortable">
             <thead>
             <tr>
-                <th class="title">Id</th>
-                <th class="title">Brand</th>
-                <th class="title">Model</th>
-                <th class="title">Problem description</th>
-                <th class="title">Price</th>
-                <th class="title">Feedback</th>
-                <th class="title">Select invoice</th>
+                <th class="title"><fmt:message key='Id'/></th>
+                <th class="title"><fmt:message key='Brand'/></th>
+                <th class="title"><fmt:message key='Model'/></th>
+                <th class="title"><fmt:message key='ProblemDescription'/></th>
+                <th class="title"><fmt:message key='Price'/></th>
+                <th class="title"><fmt:message key='Feedback'/></th>
+                <th class="title"><fmt:message key='SelectInvoice'/></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-
                 <c:forEach var="invoiceList" items="${invoiceList}">
             <tr>
                 <td>${invoiceList.id}</td>
@@ -71,10 +68,9 @@
                     <input type="hidden" name="invoiceId" value="${invoiceList.id}">
                     <input type="hidden" name="command" value="selectInvoice">
                     <td class="title">
-                        <input type="submit" value="Select invoice" class="btn btn-outline-primary me-2">
+                        <input type="submit" value="<fmt:message key='SelectInvoice'/>" class="btn btn-outline-primary me-2">
                     </td>
                 </form>
-
             </tr>
             </c:forEach>
             </tbody>
@@ -87,7 +83,7 @@
         </footer>
     </c:when>
     <c:when test="${!sessionScope.role.equals('ENGINEER')}">
-        <h2>Please log in a Master</h2>
+        <h2><fmt:message key='PleaseLoginAsMaster'/></h2>
     </c:when>
 </c:choose>
 </body>

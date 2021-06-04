@@ -35,25 +35,25 @@
                     <input type="submit" value="<fmt:message key='TopUpAccount'/>" class="btn btn-outline-primary me-2">
                 </form>
                 <form action="/repair" method="post">
-                    <input type="submit" value="Main page" class="btn btn-outline-primary me-2">
+                    <input type="submit" value="<fmt:message key='MainPage'/>" class="btn btn-outline-primary me-2">
                 </form>
                 <form action="repair" method="post" class="m-r-2">
                     <input type="hidden" name="command" value="logOut">
-                    <input type="submit" value="Log out" class="btn btn-primary me-2">
+                    <input type="submit" value="<fmt:message key='LogOut'/>" class="btn btn-primary me-2">
                 </form>
             </div>
         </header>
-        <h3>Table of invoices</h3>
+        <h3><fmt:message key='InvoiceTable'/></h3>
         <table class="table table-bordered sortable">
             <thead>
             <tr>
-                <th class="title">Id</th>
-                <th class="title">Brand</th>
-                <th class="title">Model</th>
-                <th class="title">Problem description</th>
-                <th class="title">Price</th>
-                <th class="title">Feedback</th>
-                <th class="title">Select invoice</th>
+                <th class="title"><fmt:message key='Id'/></th>
+                <th class="title"><fmt:message key='Brand'/></th>
+                <th class="title"><fmt:message key='Model'/></th>
+                <th class="title"><fmt:message key='ProblemDescription'/></th>
+                <th class="title"><fmt:message key='Price'/></th>
+                <th class="title"><fmt:message key='Feedback'/></th>
+                <th class="title"><fmt:message key='SelectInvoice'/></th>
             </tr>
             </thead>
             <tbody>
@@ -71,7 +71,7 @@
                     <input type="hidden" name="invoiceId" value="${invoiceList.id}">
                     <input type="hidden" name="command" value="selectInvoice">
                     <td class="title">
-                        <input type="submit" value="Select invoice" class="btn btn-outline-primary me-2">
+                        <input type="submit" value="<fmt:message key='SelectInvoice'/>" class="btn btn-outline-primary me-2">
                     </td>
                 </form>
 
@@ -87,7 +87,7 @@
         </footer>
     </c:when>
     <c:when test="${!sessionScope.role.equals('ADMIN')}">
-        <h2>Please login as administrator</h2>
+        <h2><fmt:message key='PleaseLoginAsAdmin'/></h2>
     </c:when>
 </c:choose>
 </body>

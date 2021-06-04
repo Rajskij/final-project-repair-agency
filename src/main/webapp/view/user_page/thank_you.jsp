@@ -56,11 +56,11 @@
 </style>
 <div class="background">
     <div class="container">
-        <h1 class="text-center">Thanks for your feedback!</h1><br>
+        <h1 class="text-center"><fmt:message key='ThanksForYourFeedback'/></h1><br>
         <img class="oops" src="https://www.pngkey.com/png/detail/85-852828_cat-friendly-properties-happy-cat.png">
-        <h4 class="text-center">Hope to see you again.</h4>
-        <h4 class="text-center">click the button below to return to the main page</h4>
-        <a href="/repair/" class="btn btn-primary"> Go back to main page </a>
+        <h4 class="text-center"><fmt:message key='HopeToSeeYouAgain'/></h4>
+        <h4 class="text-center"><fmt:message key='ClickTheButtonBellow'/></h4>
+        <a href="/repair/" class="btn btn-primary"><fmt:message key='GoBackToMainPage'/></a>
     </div>
 </div>
 </body>

@@ -67,24 +67,23 @@
 <c:when test="${sessionScope.role.equals('ADMIN')}">
 <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
     <div class="d-flex justify-content-between">
-        <h3 class="fw-normal">Current ${currentUser} wallet: ${currentWallet} $</h3>
+        <h3 class="fw-normal"><fmt:message key='Current'/> ${currentUser} <fmt:message key='Wallet'/>: ${currentWallet} $</h3>
     </div>
     <div class="col-md-3 text-end">
         <form action="account" method="post" class="form">
             <input type="hidden" name="command" value="adminPage">
-            <input type="submit" value="back to list" class="w-75 btn btn-primary">
+            <input type="submit" value="<fmt:message key='BackToList'/>" class="w-75 btn btn-primary">
         </form>
     </div>
 </header>
 <div class="edit-wallet-form">
     <main class="form-signin">
-        <h3>1. Select user</h3>
+        <h3>1. <fmt:message key='SelectUser'/></h3>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Show users
+                <fmt:message key='ShowUser'/>
             </button>
-
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <c:forEach var="users" items="${users}">
                     <form action="wallet" method="post">
@@ -99,7 +98,7 @@
         </div>
     </main>
     <main class="form-signin">
-        <h3>2. Edit ${currentUser} wallet</h3>
+        <h3>2. <fmt:message key='Edit'/> ${currentUser} <fmt:message key='Wallet'/></h3>
         <form action="wallet" method="post">
             <input type="hidden" name="command" value="topUpAccount">
             <input type="hidden" name="usersWallet" value="${currentWallet}">
@@ -107,9 +106,9 @@
             <input type="hidden" name="usersLogin" value="${currentUser}">
             <div class="form-floating">
                 <input type="number" name="usersEditWallet" class="w-75 form-control" id="floatingInput">
-                <label for="floatingInput">value 00.00</label>
+                <label for="floatingInput"><fmt:message key='Value'/> 00.00</label>
             </div>
-            <input class="w-75 btn btn-lg btn-primary" type="submit" value="select">
+            <input class="w-75 btn btn-lg btn-primary" type="submit" value="<fmt:message key='Select'/>">
         </form>
     </main>
 </div>

@@ -19,7 +19,6 @@
       display: flex;
       flex-direction: column;
     }
-
     footer {
       margin-top: auto;
     }
@@ -32,16 +31,16 @@
       <div class="col-md-3 d-flex justify-content-end">
         <form action="userPage" method="post" class="m-r-2">
           <input type="hidden" name="command" value="userPage">
-          <input type="submit" value="back to list" class="btn btn-primary">
+          <input type="submit" value="<fmt:message key='BackToList'/>" class="btn btn-primary">
         </form>
       </div>
     </header>
-    <h3>Leave feedback on the repair of yours ${brand} ${model}</h3>
+    <h3><fmt:message key='LeaveFeedbackOnTheRepair'/> ${brand} ${model}</h3>
     <form action="adminPage" method="post" class="m-r-2">
-      <textarea class="form-control my-5" rows="10" name="comment" placeholder="Enter text here..."></textarea>
+      <textarea class="form-control my-5" rows="10" name="comment" placeholder="<fmt:message key='EnterTextHere'/>"></textarea>
       <input type="hidden" name="command" value="thankYou">
       <input type="hidden" name="id" value="${id}">
-      <input type="submit" value="Submit feedback" class="w-25 btn btn-primary">
+      <input type="submit" value="<fmt:message key='SubmitFeedback'/>" class="w-25 btn btn-primary">
     </form>
     <footer>
       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
@@ -51,7 +50,7 @@
     </footer>
   </c:when>
   <c:when test="${!sessionScope.role.equals('USER')}">
-    <h2>Please login as user</h2>
+    <h2><fmt:message key='PleaseLoginAsUser'/></h2>
   </c:when>
 </c:choose>
 </body>

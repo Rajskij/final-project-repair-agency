@@ -34,11 +34,11 @@
                     <c:when test="${sessionScope.role.equals('ADMIN')}">
                         <form action="top_up_account" method="post">
                             <input type="hidden" name="command" value="topUpAccount">
-                            <input type="submit" value="top up account" class="btn btn-outline-primary me-2">
+                            <input type="submit" value="<fmt:message key='TopUpAccount'/>" class="btn btn-outline-primary me-2">
                         </form>
                         <form action="adminPage" method="post" class="m-r-2">
                             <input type="hidden" name="command" value="adminPage">
-                            <input type="submit" value="back to list" class="btn btn-primary">
+                            <input type="submit" value="<fmt:message key='BackToList'/>" class="btn btn-primary">
                         </form>
                     </c:when>
                 </c:choose>
@@ -46,31 +46,31 @@
                     <c:when test="${sessionScope.role.equals('ENGINEER')}">
                         <form action="engineerPage" method="post" class="m-r-2">
                             <input type="hidden" name="command" value="engineerPage">
-                            <input type="submit" value="back to list" class="btn btn-primary">
+                            <input type="submit" value="<fmt:message key='BackToList'/>" class="btn btn-primary">
                         </form>
                     </c:when>
                 </c:choose>
             </div>
         </header>
-        <h3>Invoice</h3>
+        <h3><fmt:message key='Invoice'/></h3>
         <table class="table table-bordered sortable">
             <tr>
-                <th class="title">Position</th>
-                <th class="title">Current values</th>
-                <th class="title">Editable values</th>
+                <th class="title"><fmt:message key='Position'/></th>
+                <th class="title"><fmt:message key='CurrentValues'/></th>
+                <th class="title"><fmt:message key='EditableValues'/></th>
             </tr>
             <tr>
-                <th class="title">Id</th>
+                <th class="title"><fmt:message key='Id'/></th>
                 <td class="title">${invoice.id}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">User</th>
+                <th class="title"><fmt:message key='User'/></th>
                 <td class="title">${invoice.user}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">User wallet</th>
+                <th class="title"><fmt:message key='UserWallet'/></th>
                 <td class="title">${userWallet}$</td>
                 <td class="title">
                     <c:choose>
@@ -82,7 +82,7 @@
                                 <input type="hidden" name="userLogin" value="${invoice.user}">
                                 <input type="hidden" name="newWallet" value="${requestScope.userWallet.subtract(requestScope.invoice.price)}">
                                 <div class="form-floating d-flex flex-grow-1">
-                                    <input type="submit" value="Pay for services" class="btn btn-primary">
+                                    <input type="submit" value="<fmt:message key='PayForService'/>" class="btn btn-primary">
                                 </div>
                             </form>
                         </c:when>
@@ -90,22 +90,22 @@
                 </td>
             </tr>
             <tr>
-                <th class="title">Brand</th>
+                <th class="title"><fmt:message key='Brand'/></th>
                 <td class="title">${invoice.brand}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">Model</th>
+                <th class="title"><fmt:message key='Model'/></th>
                 <td class="title">${invoice.model}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">Description</th>
+                <th class="title"><fmt:message key='Description'/></th>
                 <td class="title">${invoice.description}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">Price</th>
+                <th class="title"><fmt:message key='Price'/></th>
                 <td class="title">${invoice.price} $</td>
                 <td>
                     <c:choose>
@@ -115,8 +115,8 @@
                                 <input type="hidden" name="invoiceId" value="${invoice.id}">
                                 <div class="form-floating d-flex flex-grow-1">
                                     <input name="price" type="number" class="form-control" id="floatingInput">
-                                    <label for="floatingInput">put price</label>
-                                    <input type="submit" value="Set price" class="btn btn-primary">
+                                    <label for="floatingInput"><fmt:message key='PutPrice'/></label>
+                                    <input type="submit" value="<fmt:message key='StePrice'/>" class="btn btn-primary">
                                 </div>
                             </form>
                         </c:when>
@@ -124,12 +124,12 @@
                 </td>
             </tr>
             <tr>
-                <th class="title">Feedback</th>
+                <th class="title"><fmt:message key='Feedback'/></th>
                 <td class="title">${invoice.feedback}</td>
                 <td class="title"></td>
             </tr>
             <tr>
-                <th class="title">Status</th>
+                <th class="title"><fmt:message key='Status'/></th>
                 <td class="title">${invoice.status}</td>
                 <td>
                     <c:choose>
@@ -146,18 +146,18 @@
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
                                         <input class="dropdown-item" type="submit" name="status"
-                                               value="Payment expected">
+                                               value="<fmt:message key='PaymentExpected'/>">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
                                         <input type="hidden" name="invoiceUser" value="${invoice.user}">
-                                        <input class="dropdown-item" type="submit" name="status" value="Paid">
+                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Paid'/>Paid">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status" value="Canceled">
+                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Canceled'/>">
                                     </form>
                                 </div>
                             </div>
@@ -168,19 +168,19 @@
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownStatusButton1"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select status
+                                    <fmt:message key='SelectStatus'/>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
                                         <input class="dropdown-item" type="submit" name="status"
-                                               value="In work">
+                                               value="<fmt:message key='InWork'/>">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status" value="Done">
+                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Done'/>">
                                     </form>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                 </td>
             </tr>
             <tr>
-                <th class="title">Engineer</th>
+                <th class="title"><fmt:message key='Engineer'/></th>
                 <td class="title">${invoice.engineer}</td>
                 <td>
                     <c:choose>
@@ -197,7 +197,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownEngineerButton"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select engineers
+                                    <fmt:message key='SelectEngineer'/>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <c:forEach var="engineer" items="${engineerList}">
@@ -223,7 +223,7 @@
         </footer>
     </c:when>
     <c:when test="${!sessionScope.role.equals('ADMIN') && !sessionScope.role.equals('ENGINEER')}">
-        <h2>Please log in</h2>
+        <h2><fmt:message key='PleaseSignIn'/></h2>
     </c:when>
 </c:choose>
 </body>
