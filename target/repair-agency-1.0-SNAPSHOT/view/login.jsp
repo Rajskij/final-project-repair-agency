@@ -58,7 +58,7 @@
         <h1 class="h3 mb-3 fw-normal"><fmt:message key='PleaseSignIn'/></h1>
 
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="user@gmail.com">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" value="admin@gmail.com">
             <label for="floatingInput"><fmt:message key='Email'/></label>
         </div>
         <div class="form-floating">

@@ -46,7 +46,7 @@
                     <th class="title"><fmt:message key='Brand'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
-                            <input name="brand" type="text" class="form-control" id="brandInput">
+                            <input name="brand" type="text" class="form-control" id="brandInput" required>
                             <label for="brandInput"><fmt:message key='InputYourBrand'/></label>
                         </div>
                     </td>
@@ -55,7 +55,7 @@
                     <th class="title"><fmt:message key='Model'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
-                            <input name="model" type="text" class="form-control" id="modelInput">
+                            <input name="model" type="text" class="form-control" id="modelInput" required>
                             <label for="modelInput"><fmt:message key='InputYourModel'/></label>
                         </div>
                     </td>
@@ -64,7 +64,7 @@
                     <th class="title"><fmt:message key='Description'/></th>
                     <td class="title">
                         <div class="form-floating d-flex flex-grow-1">
-                            <input name="<fmt:message key=''/>description" type="text" class="form-control" id="descriptionInput">
+                            <input name="description" type="text" class="form-control" id="descriptionInput" required>
                             <label for="descriptionInput"><fmt:message key='InputYourDescription'/></label>
                         </div>
                     </td>

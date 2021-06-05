@@ -19,6 +19,7 @@ public class Util {
         invoice.setUser_id(rs.getInt("user_id"));
         invoice.setEngineer_id(rs.getInt("engineer_id"));
         invoice.setStatus(rs.getString("status"));
+        invoice.setDate(rs.getString("date"));
         return invoice;
     }
 

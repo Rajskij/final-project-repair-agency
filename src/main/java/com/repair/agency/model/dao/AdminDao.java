@@ -8,15 +8,18 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class AdminDao {
     private static final Logger logger = LogManager.getLogger(AdminDao.class.getName());
+
     private static final String SET_USERS_WALLET = "UPDATE user SET wallet=? WHERE id=?";
     private static final String UPDATE_INVOICE_ENGINEER = "UPDATE invoice SET engineer_id=? WHERE invoice_id=?";
     private static final String UPDATE_INVOICE_PRICE = "UPDATE invoice SET price=? WHERE invoice_id=?";
     private static final String UPDATE_INVOICE_STATUS = "UPDATE invoice SET status=? WHERE invoice_id=?";
+    private static final String SELECT_INVOICES_BY_STATUS = "SELECT * FROM invoice WHERE status=?";
     private final String FINED_INVOICE_BY_ID = "SELECT * FROM user inner JOIN invoice " +
             "ON invoice.invoice_id = ? and user.id = invoice.user_id or invoice.invoice_id = ? and user.id = invoice.engineer_id;";
     private final String UPDATE_INVOICE = "UPDATE invoice set price=?, status=?, engineer_id=? where invoice_id=?";
@@ -165,5 +168,26 @@ public class AdminDao {
 //        System.out.println(id);
 //        boolean result = adminDao.updateInvoiceValues("78", "waiting for payment", "Petrov", 2);
 //        System.out.println(result);
+//        Date currentDate = new Date();
+//        SimpleDateFormat dateFormat = null;
+//        dateFormat = new SimpleDateFormat("d MMM y H:mm", Locale.ENGLISH);
+//        System.out.println(dateFormat.format(currentDate));
+        System.out.println(adminDao.getInvoiceById(2));
+    }
+
+    public List<Invoice> getInvoiceByStatus(String status) {
+        List<Invoice> invoicesList = new ArrayList<>();
+        try (Connection con = getConnection();
+             PreparedStatement prepStmt = con.prepareStatement(SELECT_INVOICES_BY_STATUS)) {
+            prepStmt.setString(1, status);
+            ResultSet rs = prepStmt.executeQuery();
+            while (rs.next()) {
+                Invoice invoice = util.getInvoice(rs);
+                invoicesList.add(invoice);
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+        return invoicesList;
     }
 }

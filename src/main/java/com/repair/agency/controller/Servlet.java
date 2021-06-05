@@ -30,8 +30,8 @@ public class Servlet extends HttpServlet {
         String forward = command.execute(request, response);
 
         if (forward != null) {
-            RequestDispatcher disp = request.getRequestDispatcher(forward);
-            disp.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+            dispatcher.forward(request, response);
         }
     }
 

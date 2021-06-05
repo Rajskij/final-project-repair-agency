@@ -14,6 +14,7 @@ public class Invoice {
     private String user;
     private String engineer;
     private String status;
+    private String date;
     private int user_id;
     private int engineer_id;
 
@@ -105,6 +106,14 @@ public class Invoice {
         this.status = status;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -119,6 +128,7 @@ public class Invoice {
                 ", status='" + status + '\'' +
                 ", user_id=" + user_id +
                 ", engineer_id=" + engineer_id +
+                ", date=" + date +
                 '}';
     }
 

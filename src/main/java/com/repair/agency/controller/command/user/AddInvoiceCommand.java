@@ -19,8 +19,10 @@ public class AddInvoiceCommand extends Command {
         String brand = request.getParameter("brand");
         String model = request.getParameter("model");
         String description = request.getParameter("description");
-        userDao.insertInvoice(brand, model, description, email);
 
+        if (!userDao.insertInvoice(brand, model, description, email)) {
+            return Path.ERROR_PAGE;
+        }
         List<Invoice> invoiceList = userDao.selectInvoicesByEmail(email);
         request.setAttribute("invoiceList", invoiceList);
         return Path.USER_PAGE;

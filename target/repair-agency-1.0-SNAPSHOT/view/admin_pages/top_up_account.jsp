@@ -57,68 +57,84 @@
             border-bottom-left-radius: 0;
         }
 
-        footer{
+        footer {
             margin-top: auto;
+        }
+        .con {
+            align-self: center;
+            margin: 50px;
+            max-width: 700px;
+            height: 650px;
+            border-radius: 45px;
+            background-color: #a0a0a0;
         }
     </style>
 </head>
 <body class="container">
 <c:choose>
-<c:when test="${sessionScope.role.equals('ADMIN')}">
-<header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
-    <div class="d-flex justify-content-between">
-        <h3 class="fw-normal"><fmt:message key='Current'/> ${currentUser} <fmt:message key='Wallet'/>: ${currentWallet} $</h3>
-    </div>
-    <div class="col-md-3 text-end">
-        <form action="account" method="post" class="form">
-            <input type="hidden" name="command" value="adminPage">
-            <input type="submit" value="<fmt:message key='BackToList'/>" class="w-75 btn btn-primary">
-        </form>
-    </div>
-</header>
-<div class="edit-wallet-form">
-    <main class="form-signin">
-        <h3>1. <fmt:message key='SelectUser'/></h3>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <fmt:message key='ShowUser'/>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <c:forEach var="users" items="${users}">
-                    <form action="wallet" method="post">
-                        <input type="hidden" name="command" value="topUpAccount">
-                        <input type="hidden" name="usersWallet" value="${users.wallet}">
-                        <input type="hidden" name="usersId" value="${users.id}">
-                        <input type="hidden" name="usersLogin" value="${users.login}">
-                        <input class="dropdown-item" type="submit" value="${users.login}">
-                    </form>
-                </c:forEach>
+    <c:when test="${sessionScope.role.equals('ADMIN')}">
+        <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
+            <div class="d-flex justify-content-between">
+                <h3 class="fw-normal"><fmt:message key='Current'/> ${currentUser} <fmt:message
+                        key='Wallet'/>: ${currentWallet} $</h3>
             </div>
+            <div class="col-md-3 text-end">
+                <form action="account" method="post" class="form">
+                    <input type="hidden" name="command" value="adminPage">
+                    <input type="submit" value="<fmt:message key='BackToList'/>" class="w-75 btn btn-primary">
+                </form>
+            </div>
+        </header>
+        <div class="d-flex justify-content-center">
+                <div class="con edit-wallet-form">
+                    <main class="form-signin  mx-5">
+                        <h3 class="my-5">1.<fmt:message key='SelectUser'/></h3>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <fmt:message key='ShowUser'/>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <c:forEach var="users" items="${users}">
+                                    <form action="wallet" method="post">
+                                        <input type="hidden" name="command" value="topUpAccount">
+                                        <input type="hidden" name="usersWallet" value="${users.wallet}">
+                                        <input type="hidden" name="usersId" value="${users.id}">
+                                        <input type="hidden" name="usersLogin" value="${users.login}">
+                                        <input class="dropdown-item" type="submit" value="${users.login}">
+                                    </form>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </main>
+                    <main class="form-signin mx-5">
+                        <h3 class="my-5">2.<fmt:message key='Edit'/>${currentUser}<fmt:message key='Wallet'/></h3>
+                        <form action="wallet" method="post">
+                            <input type="hidden" name="command" value="topUpAccount">
+                            <input type="hidden" name="usersWallet" value="${currentWallet}">
+                            <input type="hidden" name="usersId" value="${currentId}">
+                            <input type="hidden" name="usersLogin" value="${currentUser}">
+                            <div class="form-floating">
+                                <input type="number" name="usersEditWallet" class="w-75 form-control" id="floatingInput"
+                                       required>
+                                <label for="floatingInput">
+                                    <fmt:message key='Value'/>
+                                    00.00</label>
+                            </div>
+                            <input class="w-75 btn btn-lg btn-primary" type="submit"
+                                   value="<fmt:message key='Submit'/>">
+                        </form>
+                    </main>
+                </div>
+
         </div>
-    </main>
-    <main class="form-signin">
-        <h3>2. <fmt:message key='Edit'/> ${currentUser} <fmt:message key='Wallet'/></h3>
-        <form action="wallet" method="post">
-            <input type="hidden" name="command" value="topUpAccount">
-            <input type="hidden" name="usersWallet" value="${currentWallet}">
-            <input type="hidden" name="usersId" value="${currentId}">
-            <input type="hidden" name="usersLogin" value="${currentUser}">
-            <div class="form-floating">
-                <input type="number" name="usersEditWallet" class="w-75 form-control" id="floatingInput">
-                <label for="floatingInput"><fmt:message key='Value'/> 00.00</label>
+        <footer>
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2021 Copyright:
+                <a class="text-reset fw-bold">repair-agency.com</a>
             </div>
-            <input class="w-75 btn btn-lg btn-primary" type="submit" value="<fmt:message key='Select'/>">
-        </form>
-    </main>
-</div>
-<footer>
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        © 2021 Copyright:
-        <a class="text-reset fw-bold">repair-agency.com</a>
-    </div>
-</footer>
-</c:when>
+        </footer>
+    </c:when>
     <c:when test="${!sessionScope.role.equals('ADMIN')}">
         <h2>Please login as administrator</h2>
     </c:when>

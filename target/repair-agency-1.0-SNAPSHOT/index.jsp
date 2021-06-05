@@ -26,7 +26,7 @@
             <input type="hidden" name="lang" value="ua">
             <input type="submit" value="<fmt:message key='Ua'/>" class="w-100 btn btn-outline-secondary">
         </form>
-        <form action="${pageContext.request.requestURI}" method="post">
+        <form action="${pageContext.request.requestURI}" method="post" class="mx-2">
             <input type="hidden" name="lang" value="en">
             <input type="submit" value="En" class="w-100 btn btn-outline-secondary">
         </form>

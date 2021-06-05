@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
             crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
     <style>
         body {
             min-height: 100vh;
@@ -76,6 +77,19 @@
             </tbody>
         </table>
         <footer>
+            <div class="d-flex flex-row justify-content-center">
+                <c:forEach var="i" begin="1" end="${pages}">
+                    <c:choose>
+                        <c:when test="${pages != 1}">
+                            <form action="account" method="get">
+                                <input type="hidden" name="command" value="engineerPage">
+                                <input type="hidden" name="page" value="${i}">
+                                <input type="submit" class="btn btn-outline-secondary mx-1" value="${i}">
+                            </form>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
+            </div>
             <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
                 © 2021 Copyright:
                 <a class="text-reset fw-bold">repair-agency.com</a>

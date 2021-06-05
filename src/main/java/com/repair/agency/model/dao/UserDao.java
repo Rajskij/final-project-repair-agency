@@ -118,17 +118,19 @@ public class UserDao {
         return name;
     }
 
-    public void insertInvoice(String brand, String model, String description, String email) {
+    public boolean insertInvoice(String brand, String model, String description, String email) {
+        boolean result = false;
         try (Connection con = getConnection();
              PreparedStatement prepStmt = con.prepareStatement(CREATE_NEW_INVOICE)) {
             prepStmt.setString(1, brand);
             prepStmt.setString(2, model);
             prepStmt.setString(3, description);
             prepStmt.setString(4, email);
-            prepStmt.executeUpdate();
+            result = prepStmt.executeUpdate() > 0;
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
+        return result;
     }
 
     public static void main(String[] args) {

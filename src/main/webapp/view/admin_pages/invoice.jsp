@@ -23,6 +23,10 @@
         footer {
             margin-top: auto;
         }
+        .title {
+            min-width: 250px;
+            max-width: 200px;
+        }
     </style>
 </head>
 <body class="container">
@@ -75,14 +79,15 @@
                 <td class="title">
                     <c:choose>
                         <c:when test="${requestScope.userWallet.compareTo(requestScope.invoice.price) == 1
-                        && sessionScope.role.equals('ADMIN')}">
+                        && sessionScope.role.equals('ADMIN')
+                        && invoice.status.equals('Payment expected')}">
                             <form action="editWallet" method="post">
                                 <input type="hidden" name="command" value="selectInvoice">
                                 <input type="hidden" name="invoiceId" value="${invoice.id}">
                                 <input type="hidden" name="userLogin" value="${invoice.user}">
                                 <input type="hidden" name="newWallet" value="${requestScope.userWallet.subtract(requestScope.invoice.price)}">
                                 <div class="form-floating d-flex flex-grow-1">
-                                    <input type="submit" value="<fmt:message key='PayForService'/>" class="btn btn-primary">
+                                    <input type="submit" value="<fmt:message key='PayForService'/>" class="btn btn-outline-primary">
                                 </div>
                             </form>
                         </c:when>
@@ -113,10 +118,11 @@
                             <form action="editPrice" method="post">
                                 <input type="hidden" name="command" value="selectInvoice">
                                 <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                <div class="form-floating d-flex flex-grow-1">
-                                    <input name="price" type="number" class="form-control" id="floatingInput">
-                                    <label for="floatingInput"><fmt:message key='PutPrice'/></label>
-                                    <input type="submit" value="<fmt:message key='StePrice'/>" class="btn btn-primary">
+                                <div class="input-group mb-3 w-75">
+                                    <span class="input-group-text">$</span>
+                                    <input name="price" type="number" class="form-control" id="floatingInput" value="0" required>
+                                    <span class="input-group-text">.00</span>
+                                    <input type="submit" value="<fmt:message key='StePrice'/>" class="btn btn-outline-primary">
                                 </div>
                             </form>
                         </c:when>
@@ -137,7 +143,7 @@
                         && !requestScope.invoice.status.equals('In work')
                         && sessionScope.role.equals('ADMIN')}">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownStatusButton"
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownStatusButton"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select status
                                 </button>
@@ -145,19 +151,19 @@
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status"
-                                               value="<fmt:message key='PaymentExpected'/>">
+                                        <input style="color: #2f67a0" class="dropdown-item" type="submit" name="status"
+                                               value="Payment expected">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
                                         <input type="hidden" name="invoiceUser" value="${invoice.user}">
-                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Paid'/>Paid">
+                                        <input style="color: #7fa01a" class="dropdown-item" type="submit" name="status" value="Paid">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Canceled'/>">
+                                        <input style="color:red" class="dropdown-item" type="submit" name="status" value="Canceled">
                                     </form>
                                 </div>
                             </div>
@@ -166,7 +172,7 @@
                         && !requestScope.invoice.status.equals('Canceled')
                         && sessionScope.role.equals('ENGINEER')}">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownStatusButton1"
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownStatusButton1"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <fmt:message key='SelectStatus'/>
                                 </button>
@@ -174,13 +180,13 @@
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status"
-                                               value="<fmt:message key='InWork'/>">
+                                        <input style="color: #12a089" class="dropdown-item" type="submit" name="status"
+                                               value="In work">
                                     </form>
                                     <form action="editStatus" method="post">
                                         <input type="hidden" name="command" value="selectInvoice">
                                         <input type="hidden" name="invoiceId" value="${invoice.id}">
-                                        <input class="dropdown-item" type="submit" name="status" value="<fmt:message key='Done'/>">
+                                        <input style="color: #1aa016" class="dropdown-item" type="submit" name="status" value="Done">
                                     </form>
                                 </div>
                             </div>
@@ -195,7 +201,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.role.equals('ADMIN')}">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownEngineerButton"
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownEngineerButton"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <fmt:message key='SelectEngineer'/>
                                 </button>

@@ -37,7 +37,7 @@
     </header>
     <h3><fmt:message key='LeaveFeedbackOnTheRepair'/> ${brand} ${model}</h3>
     <form action="adminPage" method="post" class="m-r-2">
-      <textarea class="form-control my-5" rows="10" name="comment" placeholder="<fmt:message key='EnterTextHere'/>"></textarea>
+      <textarea class="form-control my-5" rows="10" name="comment" placeholder="<fmt:message key='EnterTextHere'/>" required></textarea>
       <input type="hidden" name="command" value="thankYou">
       <input type="hidden" name="id" value="${id}">
       <input type="submit" value="<fmt:message key='SubmitFeedback'/>" class="w-25 btn btn-primary">
