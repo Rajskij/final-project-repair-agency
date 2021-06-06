@@ -2,7 +2,7 @@ package com.repair.agency.controller.command.admin;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.AdminDao;
+import com.repair.agency.model.dao.jdbc.AdminDao;
 import com.repair.agency.model.entity.User;
 
 import javax.servlet.ServletException;

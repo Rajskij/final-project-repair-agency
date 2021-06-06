@@ -1,16 +1,8 @@
 package model.Dao.impl;
 
-import com.repair.agency.model.dao.AdminDao;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import com.repair.agency.model.dao.jdbc.AdminDao;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class AdminDaoTest {
     Connection con;

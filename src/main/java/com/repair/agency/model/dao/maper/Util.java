@@ -1,4 +1,4 @@
-package com.repair.agency.model.service;
+package com.repair.agency.model.dao.maper;
 
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;

@@ -2,7 +2,7 @@ package com.repair.agency.controller.command.engineer;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.EngineerDao;
+import com.repair.agency.model.dao.jdbc.EngineerDao;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.utils.ListSplitter;
 import com.repair.agency.model.utils.PagesCounter;

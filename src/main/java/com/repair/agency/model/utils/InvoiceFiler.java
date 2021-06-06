@@ -1,7 +1,7 @@
 package com.repair.agency.model.utils;
 
-import com.repair.agency.model.dao.AdminDao;
-import com.repair.agency.model.dao.EngineerDao;
+import com.repair.agency.model.dao.jdbc.AdminDao;
+import com.repair.agency.model.dao.jdbc.EngineerDao;
 import com.repair.agency.model.entity.Invoice;
 
 import java.util.ArrayList;

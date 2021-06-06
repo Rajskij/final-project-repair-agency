@@ -4,7 +4,7 @@ import com.repair.agency.Path;
 import com.repair.agency.controller.command.admin.AdminPageCommand;
 import com.repair.agency.controller.command.engineer.EngineerPageCommand;
 import com.repair.agency.controller.command.user.UserPageCommand;
-import com.repair.agency.model.dao.UserDao;
+import com.repair.agency.model.dao.jdbc.UserDao;
 import com.repair.agency.model.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -54,15 +54,14 @@
         <%-- ---------------DROP DOWN BUTTONS--------------- --%>
         <div class="d-flex flex-wrap justify-content-between py-1 mb-3">
             <div>
-                <h3>InvoiceTable</h3>
+                <h3><fmt:message key="InvoiceTable"></h3>
             </div>
             <div class="d-flex justify-content-end">
                 <div class="dropdown d-flex justify-content-end">
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                id="dropdownEngineerButton"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sort by
+                            <fmt:message key="SortBy"/>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <c:forEach var="sort" items="${sortBy}">
@@ -76,9 +75,9 @@
                     </div>
                 </div>
                 <div class="dropdown mx-2">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownEngineerButton"
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter engineers
+                        <fmt:message key="FilterEngineers"/>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <form action="account" method="post">
@@ -98,7 +97,7 @@
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownStatusButton"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter status
+                        <fmt:message key="FilterStatus"/>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownStatusButton">
                         <c:forEach var="status" items="${statusList}">

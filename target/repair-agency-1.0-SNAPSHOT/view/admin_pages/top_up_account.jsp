@@ -60,13 +60,23 @@
         footer {
             margin-top: auto;
         }
+
         .con {
-            align-self: center;
+            display: flex;
+            align-items: start;
             margin: 50px;
             max-width: 700px;
-            height: 650px;
+            height: 500px;
             border-radius: 45px;
-            background-color: #a0a0a0;
+            background-color: #e9e9e9;
+            box-shadow: 10px 5px 5px lightgray;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 120px;
         }
     </style>
 </head>
@@ -85,47 +95,47 @@
                 </form>
             </div>
         </header>
-        <div class="d-flex justify-content-center">
-                <div class="con edit-wallet-form">
-                    <main class="form-signin  mx-5">
-                        <h3 class="my-5">1.<fmt:message key='SelectUser'/></h3>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <fmt:message key='ShowUser'/>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <c:forEach var="users" items="${users}">
-                                    <form action="wallet" method="post">
-                                        <input type="hidden" name="command" value="topUpAccount">
-                                        <input type="hidden" name="usersWallet" value="${users.wallet}">
-                                        <input type="hidden" name="usersId" value="${users.id}">
-                                        <input type="hidden" name="usersLogin" value="${users.login}">
-                                        <input class="dropdown-item" type="submit" value="${users.login}">
-                                    </form>
-                                </c:forEach>
-                            </div>
+        <div class="d-flex justify-content-center mt-5">
+            <div class="con">
+                <main class="main mx-5">
+                    <h3 class="my-5">1.<fmt:message key='SelectUser'/></h3>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <fmt:message key='ShowUser'/>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <c:forEach var="users" items="${users}">
+                                <form action="wallet" method="post">
+                                    <input type="hidden" name="command" value="topUpAccount">
+                                    <input type="hidden" name="usersWallet" value="${users.wallet}">
+                                    <input type="hidden" name="usersId" value="${users.id}">
+                                    <input type="hidden" name="usersLogin" value="${users.login}">
+                                    <input class="dropdown-item" type="submit" value="${users.login}">
+                                </form>
+                            </c:forEach>
                         </div>
-                    </main>
-                    <main class="form-signin mx-5">
-                        <h3 class="my-5">2.<fmt:message key='Edit'/>${currentUser}<fmt:message key='Wallet'/></h3>
-                        <form action="wallet" method="post">
-                            <input type="hidden" name="command" value="topUpAccount">
-                            <input type="hidden" name="usersWallet" value="${currentWallet}">
-                            <input type="hidden" name="usersId" value="${currentId}">
-                            <input type="hidden" name="usersLogin" value="${currentUser}">
-                            <div class="form-floating">
-                                <input type="number" name="usersEditWallet" class="w-75 form-control" id="floatingInput"
-                                       required>
-                                <label for="floatingInput">
-                                    <fmt:message key='Value'/>
-                                    00.00</label>
-                            </div>
-                            <input class="w-75 btn btn-lg btn-primary" type="submit"
-                                   value="<fmt:message key='Submit'/>">
-                        </form>
-                    </main>
-                </div>
+                    </div>
+                </main>
+                <main class="main mx-5">
+                    <h3 class="my-5">2.<fmt:message key='Edit'/> ${currentUser} <fmt:message key='Wallet'/></h3>
+                    <form action="wallet" method="post">
+                        <input type="hidden" name="command" value="topUpAccount">
+                        <input type="hidden" name="usersWallet" value="${currentWallet}">
+                        <input type="hidden" name="usersId" value="${currentId}">
+                        <input type="hidden" name="usersLogin" value="${currentUser}">
+                        <div class="form-floating">
+                            <input type="number" name="usersEditWallet" class="w-100 form-control" id="floatingInput"
+                                   required>
+                            <label for="floatingInput">
+                                <fmt:message key='Value'/>
+                                00.00</label>
+                        </div>
+                        <input class="w-100 btn btn-lg btn-primary" type="submit"
+                               value="<fmt:message key='Submit'/>">
+                    </form>
+                </main>
+            </div>
 
         </div>
         <footer>

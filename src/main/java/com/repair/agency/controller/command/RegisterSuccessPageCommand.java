@@ -1,7 +1,7 @@
 package com.repair.agency.controller.command;
 
 import com.repair.agency.Path;
-import com.repair.agency.model.dao.UserDao;
+import com.repair.agency.model.dao.jdbc.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

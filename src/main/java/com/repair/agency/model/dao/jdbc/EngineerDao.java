@@ -1,8 +1,8 @@
-package com.repair.agency.model.dao;
+package com.repair.agency.model.dao.jdbc;
 
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
-import com.repair.agency.model.service.Util;
+import com.repair.agency.model.dao.maper.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
