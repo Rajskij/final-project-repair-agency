@@ -4,7 +4,8 @@ import com.repair.agency.Path;
 import com.repair.agency.controller.command.admin.AdminPageCommand;
 import com.repair.agency.controller.command.engineer.EngineerPageCommand;
 import com.repair.agency.controller.command.user.UserPageCommand;
-import com.repair.agency.model.dao.jdbc.UserDao;
+import com.repair.agency.model.dao.jdbc.JdbcUserDao;
+import com.repair.agency.model.dao.service.UserService;
 import com.repair.agency.model.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,11 +22,12 @@ public class ValidationPageCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserDao userDao = new UserDao();
+        UserService userService = new UserService();
+        //JdbcUserDao userDao = new JdbcUserDao();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        User user = userDao.findUser(email, password);
+        User user = userService.findUser(email, password);
 
         if ("ADMIN".equals(user.getRole())) {
             session.setAttribute("role", user.getRole());

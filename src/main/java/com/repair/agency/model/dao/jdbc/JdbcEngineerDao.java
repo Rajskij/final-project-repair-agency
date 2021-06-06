@@ -1,5 +1,9 @@
 package com.repair.agency.model.dao.jdbc;
 
+import com.repair.agency.model.dao.EngineerDao;
+import com.repair.agency.model.dao.constanse.SqlConst;
+import com.repair.agency.model.dao.maper.InvoiceMapper;
+import com.repair.agency.model.dao.maper.UserMapper;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
 import com.repair.agency.model.dao.maper.Util;
@@ -10,14 +14,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EngineerDao {
-    private static final Logger logger = LogManager.getLogger(AdminDao.class.getName());
-    private final String GET_ENGINEERS = "SELECT * FROM user WHERE role = 'ENGINEER'";
-    private final String GET_INVOICES_BY_EMAIL = "SELECT * FROM invoice WHERE engineer_id IN(SELECT id FROM user WHERE email=?)";
+public class JdbcEngineerDao implements EngineerDao {
+    private static final Logger logger = LogManager.getLogger(JdbcAdminDao.class.getName());
+
     private final String JDBC_URL = "jdbc:mysql://localhost:3306/repair?useSSL=false";
     private final String JDBC_USERNAME = "root";
     private final String JDBC_PASSWORD = "root";
-    private final Util util = new Util();
+    //private final Util util = new Util();
+    UserMapper userMapper = new UserMapper();
+    InvoiceMapper invoiceMapper = new InvoiceMapper();
+    private Connection connection;
+
+
+    public JdbcEngineerDao(Connection connection) {
+        this.connection = connection;
+    }
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -30,13 +41,14 @@ public class EngineerDao {
         return connection;
     }
 
+    @Override
     public List<User> getAllEngineers() {
         List<User> engineers = new ArrayList<>();
         try (Connection con = getConnection();
              Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(GET_ENGINEERS);
+            ResultSet rs = stmt.executeQuery(SqlConst.GET_ENGINEERS);
             while (rs.next()) {
-                User user = util.getUser(rs);
+                User user = userMapper.mapFromResultSet(rs);
                 engineers.add(user);
             }
         } catch (SQLException e) {
@@ -45,14 +57,15 @@ public class EngineerDao {
         return engineers;
     }
 
+    @Override
     public List<Invoice> getInvoicesByEmail(String engineerEmail) {
         List<Invoice> invoiceList = new ArrayList<>();
         try (Connection con = getConnection();
-             PreparedStatement prepStmt = con.prepareStatement(GET_INVOICES_BY_EMAIL)) {
+             PreparedStatement prepStmt = con.prepareStatement(SqlConst.GET_INVOICES_BY_EMAIL)) {
             prepStmt.setString(1, engineerEmail);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
-                Invoice invoice = util.getInvoice(rs);
+                Invoice invoice = invoiceMapper.mapFromResultSet(rs);
                 invoiceList.add(invoice);
             }
         } catch (SQLException e) {
@@ -61,8 +74,12 @@ public class EngineerDao {
         return invoiceList;
     }
 
-    public static void main(String[] args) {
-        EngineerDao engineerDao = new EngineerDao();
-        engineerDao.getInvoicesByEmail("master@gmail.com").forEach(System.out::println);
+    @Override
+    public void close() throws Exception {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

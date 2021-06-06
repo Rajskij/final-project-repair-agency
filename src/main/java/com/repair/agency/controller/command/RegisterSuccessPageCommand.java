@@ -1,7 +1,8 @@
 package com.repair.agency.controller.command;
 
 import com.repair.agency.Path;
-import com.repair.agency.model.dao.jdbc.UserDao;
+import com.repair.agency.model.dao.jdbc.JdbcUserDao;
+import com.repair.agency.model.dao.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,12 @@ public class RegisterSuccessPageCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserDao userDao = new UserDao();
+        UserService userService = new UserService();
+        //JdbcUserDao userDao = new JdbcUserDao();
         String email = request.getParameter("email");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        boolean result = userDao.insertUser(email, login, password);
+        boolean result = userService.insertUser(email, login, password);
        // request.setAttribute("login", login);
         return result ? new ValidationPageCommand().execute(request, response) : Path.ERROR_PAGE;
     }

@@ -2,9 +2,12 @@ package com.repair.agency.controller.command.admin;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.AdminDao;
-import com.repair.agency.model.dao.jdbc.EngineerDao;
-import com.repair.agency.model.dao.jdbc.UserDao;
+import com.repair.agency.model.dao.jdbc.JdbcAdminDao;
+import com.repair.agency.model.dao.jdbc.JdbcEngineerDao;
+import com.repair.agency.model.dao.jdbc.JdbcUserDao;
+import com.repair.agency.model.dao.service.AdminService;
+import com.repair.agency.model.dao.service.EngineerService;
+import com.repair.agency.model.dao.service.UserService;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
 import org.apache.logging.log4j.LogManager;
@@ -22,9 +25,12 @@ public class InvoicePageCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        AdminDao adminDao = new AdminDao();
-        UserDao userDao = new UserDao();
-        EngineerDao engineerDao = new EngineerDao();
+        AdminService adminService = new AdminService();
+        //JdbcAdminDao adminDao = new JdbcAdminDao();
+        UserService userService = new UserService();
+        //JdbcUserDao userDao = new JdbcUserDao();
+        EngineerService engineerService = new EngineerService();
+        //JdbcEngineerDao engineerDao = new JdbcEngineerDao();
         String engineerId = request.getParameter("engineerId");
         String price = request.getParameter("price");
         String status = request.getParameter("status");
@@ -35,7 +41,7 @@ public class InvoicePageCommand extends Command {
         if (newUserWallet != null) {
             try {
                 BigDecimal newWallet = new BigDecimal(newUserWallet);
-                if (userDao.updateWalletByLogin(userLogin, newWallet)) {
+                if (userService.updateWalletByLogin(userLogin, newWallet)) {
                     status = "Paid";
                 }
             } catch (NumberFormatException e) {
@@ -44,20 +50,20 @@ public class InvoicePageCommand extends Command {
         }
         if (engineerId != null) {
             int engId = Integer.parseInt(engineerId);
-            adminDao.updateInvoiceEngineer(engId, invoiceId);
+            adminService.updateInvoiceEngineer(engId, invoiceId);
         }
         if (price != null) {
-            adminDao.updateInvoicePrice(price, invoiceId);
+            adminService.updateInvoicePrice(price, invoiceId);
         }
         if (status != null) {
-            adminDao.updateInvoiceStatus(status, invoiceId);
+            adminService.updateInvoiceStatus(status, invoiceId);
         }
-        Invoice invoice = adminDao.getInvoiceById(invoiceId);
-        BigDecimal userWallet = userDao.findUserByLogin(invoice.getUser()).getWallet();
+        Invoice invoice = adminService.getInvoiceById(invoiceId);
+        BigDecimal userWallet = userService.findUserByLogin(invoice.getUser()).getWallet();
         request.setAttribute("invoice", invoice);
         request.setAttribute("userWallet", userWallet);
 
-        List<User> engineerList = engineerDao.getAllEngineers();
+        List<User> engineerList = engineerService.getAllEngineers();
         request.setAttribute("engineerList", engineerList);
         return Path.INVOICE_PAGE;
     }

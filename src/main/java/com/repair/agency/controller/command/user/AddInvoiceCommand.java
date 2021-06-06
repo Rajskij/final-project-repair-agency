@@ -2,7 +2,8 @@ package com.repair.agency.controller.command.user;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.UserDao;
+import com.repair.agency.model.dao.jdbc.JdbcUserDao;
+import com.repair.agency.model.dao.service.UserService;
 import com.repair.agency.model.entity.Invoice;
 
 import javax.servlet.ServletException;
@@ -14,16 +15,17 @@ import java.util.List;
 public class AddInvoiceCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        UserDao userDao = new UserDao();
+        UserService userService = new UserService();
+        //JdbcUserDao userDao = new JdbcUserDao();
         String email = (String) request.getSession().getAttribute("email");
         String brand = request.getParameter("brand");
         String model = request.getParameter("model");
         String description = request.getParameter("description");
 
-        if (!userDao.insertInvoice(brand, model, description, email)) {
+        if (!userService.insertInvoice(brand, model, description, email)) {
             return Path.ERROR_PAGE;
         }
-        List<Invoice> invoiceList = userDao.selectInvoicesByEmail(email);
+        List<Invoice> invoiceList = userService.selectInvoicesByEmail(email);
         request.setAttribute("invoiceList", invoiceList);
         return Path.USER_PAGE;
     }

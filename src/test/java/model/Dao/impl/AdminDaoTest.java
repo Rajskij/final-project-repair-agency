@@ -1,12 +1,12 @@
 package model.Dao.impl;
 
-import com.repair.agency.model.dao.jdbc.AdminDao;
+import com.repair.agency.model.dao.jdbc.JdbcAdminDao;
 
 import java.sql.Connection;
 
 public class AdminDaoTest {
     Connection con;
-    AdminDao adminDao;
+    JdbcAdminDao adminDao;
 /*
     @BeforeClass
     public static void dbCreate() throws SQLException, FileNotFoundException {

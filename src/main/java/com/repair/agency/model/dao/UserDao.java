@@ -3,27 +3,23 @@ package com.repair.agency.model.dao;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
-public interface UserDao extends GenericDao{
-    public List<User> getAllEngineers();
+public interface UserDao extends GenericDao {
+    User findUser(String email, String password);
 
-    public List<Invoice> getInvoicesByEmail(String engineerEmail);
-    boolean updateInvoiceEngineer(int engineerId, int invoiceId);
+    User findUserByLogin(String login);
 
-    boolean updateInvoicePrice(String price, int invoiceId);
+    boolean insertUser(String email, String login, String password);
 
-    boolean updateInvoiceStatus(String status, int invoiceId);
+    List<Invoice> selectInvoicesByEmail(String email);
 
-    List<Invoice> selectAllInvoices();
+    boolean insertInvoice(String brand, String model, String description, String email);
 
-    Invoice getInvoiceById(int id);
+    boolean insertFeedback(String comment, String id);
 
-    List<User> getAllUsers();
+    boolean updateWalletByLogin(String invoiceUser, BigDecimal price);
 
-    boolean setUsersWallet(String userId, String walletValue);
-
-    List<Invoice> getInvoiceByStatus(String status);
+    User getUserByEmail(String email);
 }
