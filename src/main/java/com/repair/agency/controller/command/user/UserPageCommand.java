@@ -2,7 +2,6 @@ package com.repair.agency.controller.command.user;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.JdbcUserDao;
 import com.repair.agency.model.dao.service.UserService;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
@@ -17,7 +16,6 @@ public class UserPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = new UserService();
-        //JdbcUserDao userDao = new JdbcUserDao();
         User user = new User();
         String email = (String) request.getSession().getAttribute("email");
         List<Invoice> invoiceList = userService.selectInvoicesByEmail(email);

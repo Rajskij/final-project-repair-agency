@@ -2,7 +2,6 @@ package com.repair.agency.controller.command.admin;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.JdbcEngineerDao;
 import com.repair.agency.model.dao.service.EngineerService;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
@@ -26,7 +25,6 @@ public class AdminPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EngineerService engineerService = new EngineerService();
-        //JdbcEngineerDao engineerDao = new JdbcEngineerDao();
         String status = request.getParameter("status");
         String engineerEmail = request.getParameter("engineerEmail");
         String sortingType = request.getParameter("sortingType");

@@ -14,12 +14,10 @@ public class RegisterSuccessPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = new UserService();
-        //JdbcUserDao userDao = new JdbcUserDao();
         String email = request.getParameter("email");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         boolean result = userService.insertUser(email, login, password);
-       // request.setAttribute("login", login);
         return result ? new ValidationPageCommand().execute(request, response) : Path.ERROR_PAGE;
     }
 }

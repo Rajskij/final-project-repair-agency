@@ -4,9 +4,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
 
-/**
- * sql-DB connection
- */
 public class ConnectionPoolHolder {
     private static volatile DataSource dataSource;
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/repair?useSSL=false";

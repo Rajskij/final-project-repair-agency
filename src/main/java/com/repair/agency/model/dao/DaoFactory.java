@@ -2,9 +2,6 @@ package com.repair.agency.model.dao;
 
 import com.repair.agency.model.dao.jdbc.JDBCDaoFactory;
 
-/**
- * Factory to make Dao instances
- */
 public abstract class DaoFactory {
     private static DaoFactory daoFactory;
 

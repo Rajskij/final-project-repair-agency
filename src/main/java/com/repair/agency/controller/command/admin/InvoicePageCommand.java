@@ -2,9 +2,6 @@ package com.repair.agency.controller.command.admin;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.JdbcAdminDao;
-import com.repair.agency.model.dao.jdbc.JdbcEngineerDao;
-import com.repair.agency.model.dao.jdbc.JdbcUserDao;
 import com.repair.agency.model.dao.service.AdminService;
 import com.repair.agency.model.dao.service.EngineerService;
 import com.repair.agency.model.dao.service.UserService;
@@ -26,11 +23,8 @@ public class InvoicePageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AdminService adminService = new AdminService();
-        //JdbcAdminDao adminDao = new JdbcAdminDao();
         UserService userService = new UserService();
-        //JdbcUserDao userDao = new JdbcUserDao();
         EngineerService engineerService = new EngineerService();
-        //JdbcEngineerDao engineerDao = new JdbcEngineerDao();
         String engineerId = request.getParameter("engineerId");
         String price = request.getParameter("price");
         String status = request.getParameter("status");

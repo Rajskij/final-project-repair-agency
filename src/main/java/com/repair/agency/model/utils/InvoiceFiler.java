@@ -10,9 +10,7 @@ import java.util.List;
 public class InvoiceFiler {
     public List<Invoice> filter(String status, String engineerEmail) {
         AdminService adminService = new AdminService();
-        // JdbcAdminDao adminDao = new JdbcAdminDao();
         EngineerService engineerService = new EngineerService();
-        //JdbcEngineerDao engineerDao = new JdbcEngineerDao();
         List<Invoice> invoiceList = new ArrayList<>();
         if (status != null && !status.equals("All status")) {
             invoiceList = new AdminService().getInvoiceByStatus(status);

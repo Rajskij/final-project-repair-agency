@@ -23,7 +23,6 @@ public class ValidationPageCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = new UserService();
-        //JdbcUserDao userDao = new JdbcUserDao();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();

@@ -2,7 +2,6 @@ package com.repair.agency.controller.command.admin;
 
 import com.repair.agency.Path;
 import com.repair.agency.controller.command.Command;
-import com.repair.agency.model.dao.jdbc.JdbcAdminDao;
 import com.repair.agency.model.dao.service.AdminService;
 import com.repair.agency.model.entity.User;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class TopUpCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-       // JdbcAdminDao adminDao = new JdbcAdminDao();
         AdminService adminService = new AdminService();
         String wallet = request.getParameter("usersWallet");
         String usersId = request.getParameter("usersId");

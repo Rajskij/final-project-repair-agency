@@ -3,10 +3,8 @@ package com.repair.agency.model.dao.jdbc;
 import com.repair.agency.model.dao.AdminDao;
 import com.repair.agency.model.dao.constanse.SqlConst;
 import com.repair.agency.model.dao.maper.InvoiceMapper;
-import com.repair.agency.model.dao.maper.UserMapper;
 import com.repair.agency.model.entity.Invoice;
 import com.repair.agency.model.entity.User;
-import com.repair.agency.model.dao.maper.Util;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -18,32 +16,17 @@ import org.apache.logging.log4j.Logger;
 
 public class JdbcAdminDao implements AdminDao {
     private static final Logger logger = LogManager.getLogger(JdbcAdminDao.class.getName());
-
-    private final String JDBC_URL = "jdbc:mysql://localhost:3306/repair?useSSL=false";
-    private final String JDBC_USERNAME = "root";
-    private final String JDBC_PASSWORD = "root";
+    private final Connection connection;
     InvoiceMapper invoiceMapper = new InvoiceMapper();
-    private Connection connection;
 
     public JdbcAdminDao(Connection connection) {
         this.connection = connection;
     }
 
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
-        } catch (SQLException | ClassNotFoundException e) {
-            logger.error(e.getMessage());
-        }
-        return connection;
-    }
-
     @Override
     public boolean updateInvoiceEngineer(int engineerId, int invoiceId) {
         boolean result = false;
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              PreparedStatement prepStmt = con.prepareStatement(SqlConst.UPDATE_INVOICE_ENGINEER)) {
             prepStmt.setInt(1, engineerId);
             prepStmt.setInt(2, invoiceId);
@@ -57,7 +40,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public boolean updateInvoicePrice(String price, int invoiceId) {
         boolean result = false;
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              PreparedStatement prepStmt = con.prepareStatement(SqlConst.UPDATE_INVOICE_PRICE)) {
             prepStmt.setBigDecimal(1, new BigDecimal(price));
             prepStmt.setInt(2, invoiceId);
@@ -71,7 +54,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public boolean updateInvoiceStatus(String status, int invoiceId) {
         boolean result = false;
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              PreparedStatement prepStmt = con.prepareStatement(SqlConst.UPDATE_INVOICE_STATUS)) {
             prepStmt.setString(1, status);
             prepStmt.setInt(2, invoiceId);
@@ -85,7 +68,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public List<Invoice> selectAllInvoices() {
         List<Invoice> invoicesList = new ArrayList<>();
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(SqlConst.SELECT_INVOICES);
             while (rs.next()) {
@@ -101,7 +84,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public Invoice getInvoiceById(int id) {
         Invoice invoice = new Invoice();
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              PreparedStatement prepStmt = con.prepareStatement(SqlConst.FINED_INVOICE_BY_ID)) {
             prepStmt.setInt(1, id);
             prepStmt.setInt(2, id);
@@ -129,7 +112,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (Connection con = getConnection();
+        try (Connection con = connection;
             Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(SqlConst.SELECT_ALL_USERS);
             while (rs.next()) {
@@ -150,7 +133,7 @@ public class JdbcAdminDao implements AdminDao {
     public boolean setUsersWallet(String userId, String walletValue) {
         boolean result = false;
 
-        try (Connection con = getConnection();
+        try (Connection con = connection;
             PreparedStatement prepStmt = con.prepareStatement(SqlConst.SET_USERS_WALLET)) {
             BigDecimal wallet = new BigDecimal(walletValue);
             int id = Integer.parseInt(userId);
@@ -169,7 +152,7 @@ public class JdbcAdminDao implements AdminDao {
     @Override
     public List<Invoice> getInvoiceByStatus(String status) {
         List<Invoice> invoicesList = new ArrayList<>();
-        try (Connection con = getConnection();
+        try (Connection con = connection;
              PreparedStatement prepStmt = con.prepareStatement(SqlConst.SELECT_INVOICES_BY_STATUS)) {
             prepStmt.setString(1, status);
             ResultSet rs = prepStmt.executeQuery();
