@@ -86,6 +86,20 @@ INSERT INTO `invoice` VALUES (1,'apple','iphone 6','low battery capacity',0.00,N
 ,(3,'lenovo','p500','broken screen',100.00,'nice job',3,1,'Payment expected','2021-06-05 13:19:02');
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 UNLOCK TABLES;
+
+/*!50001 DROP VIEW IF EXISTS `allcars`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+# /*!50001 CREATE ALGORITHM=UNDEFINED */
+#     /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+#     /*!50001 VIEW `allcars` AS select `cars`.`id` AS `id`,`cars`.`marque` AS `marque`,`cars`.`car_class` AS `car_class`,`cars`.`model` AS `model`,`cars`.`price` AS `price`,`cars`.`car_status` AS `car_status` from `cars` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
