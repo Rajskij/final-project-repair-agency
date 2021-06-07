@@ -13,17 +13,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EngineerDaoTest {
     Connection con;
     JdbcEngineerDao engineerDao;
-    List<User> expectedEngineers;
+
     @BeforeClass
     public static void dbCreate() throws SQLException, FileNotFoundException {
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
@@ -38,27 +36,18 @@ public class EngineerDaoTest {
     public void jdbcCreate() throws SQLException {
         con = DBConnector.getDataSource().getConnection();
         engineerDao = new JdbcEngineerDao(con);
-        expectedEngineers = new ArrayList<>();
-        User user = new User();
-        user.setId(1);
-        user.setLogin("Master");
-        user.setPassword("123");
-        user.setRole("ENGINEER");
-        user.setWallet(new BigDecimal("0.00"));
-        user.setEmail("master@gmail.com");
-        expectedEngineers.add(user);
     }
 
     @Test
     public void getAllEngineers() {
         List<User> actualEngineers = engineerDao.getAllEngineers();
-        Assert.assertEquals(expectedEngineers.size(), actualEngineers.size());
+        Assert.assertEquals(3, actualEngineers.size());
     }
 
     @Test
     public void getInvoicesByEmail() {
         List<Invoice> actualInvoice = engineerDao.getInvoicesByEmail("master@gmail.com");
-        Assert.assertEquals(3, actualInvoice.size());
+        Assert.assertEquals(11, actualInvoice.size());
     }
 
 }

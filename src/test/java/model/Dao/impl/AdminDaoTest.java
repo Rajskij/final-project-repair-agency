@@ -42,48 +42,48 @@ public class AdminDaoTest {
     @Test
     public void getInvoiceByStatusTest() {
         List<Invoice> invoiceList = adminDao.getInvoiceByStatus("Done");
-        assertEquals(invoiceList.size(), 1);
+        assertEquals(4, invoiceList.size());
     }
 
     @Test
     public void testGetInvoiceByIdTest() {
-        Invoice invoice = adminDao.getInvoiceById(2);
+        Invoice invoice = adminDao.getInvoiceById(3);
         assertNotNull(invoice);
     }
 
     @Test
     public void updateInvoiceEngineerTest() {
-        boolean result = adminDao.updateInvoiceEngineer(1,2);
+        boolean result = adminDao.updateInvoiceEngineer(27,2);
         assertTrue(result);
     }
 
     @Test
     public void updateInvoicePriceTest() {
-        boolean result = adminDao.updateInvoicePrice("777", 1);
+        boolean result = adminDao.updateInvoicePrice("777", 2);
         assertTrue(result);
     }
 
     @Test
     public void updateInvoiceStatusTest() {
-        boolean result = adminDao.updateInvoiceStatus("DONE", 1);
+        boolean result = adminDao.updateInvoiceStatus("DONE", 2);
         assertTrue(result);
     }
 
     @Test
     public void selectAllInvoicesTest() {
         List<Invoice> invoices = adminDao.selectAllInvoices();
-        assertEquals(invoices.size(), 3);
+        assertEquals(15, invoices.size());
     }
 
     @Test
     public void getAllUsersTest() {
         List<User> list = adminDao.getAllUsers();
-        assertEquals(list.size(), 1);
+        assertEquals(6, list.size());
     }
 
     @Test
     public void setUsersWalletTest() {
-        boolean result = adminDao.setUsersWallet("3", "70.00");
+        boolean result = adminDao.setUsersWallet("25", "70.00");
         assertTrue(result);
     }
 }

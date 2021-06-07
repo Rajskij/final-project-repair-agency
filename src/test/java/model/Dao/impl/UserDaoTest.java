@@ -68,12 +68,12 @@ public class UserDaoTest {
     @Test
     public void selectInvoicesByEmailTest() {
         List<Invoice> invoiceList = userDao.selectInvoicesByEmail("user@gmail.com");
-        assertEquals(3, invoiceList.size());
+        assertEquals(9, invoiceList.size());
     }
 
     @Test
     public void insertFeedbackTest() {
-        boolean result = userDao.insertFeedback("Nice job", "1");
+        boolean result = userDao.insertFeedback("Nice job", "2");
         assertTrue(result);
     }
 
