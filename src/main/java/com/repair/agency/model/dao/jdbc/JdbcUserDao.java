@@ -64,7 +64,7 @@ public class JdbcUserDao implements UserDao {
         }
         boolean result = false;
         try (Connection con = connection;
-            PreparedStatement prepStmt = con.prepareStatement(SqlConst.INSERT_USER)) {
+             PreparedStatement prepStmt = con.prepareStatement(SqlConst.INSERT_USER)) {
             prepStmt.setString(1, email);
             prepStmt.setString(2, login);
             prepStmt.setString(3, password);
@@ -77,9 +77,10 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public List<Invoice> selectInvoicesByEmail(String email) {
+        Connection con = connection;
         List<Invoice> userInvoicesList = new ArrayList<>();
-        try (Connection con = connection;
-             PreparedStatement prepStmt = con.prepareStatement(SqlConst.SELECT_INVOICES_BY_EMAIL)) {
+        try (PreparedStatement prepStmt = con.prepareStatement(SqlConst.SELECT_INVOICES_BY_EMAIL)) {
+            con.setAutoCommit(false);
             prepStmt.setString(1, email);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next()) {
@@ -87,23 +88,33 @@ public class JdbcUserDao implements UserDao {
                 invoice.setEngineer(getEngineerById(invoice.getEngineer_id()));
                 userInvoicesList.add(invoice);
             }
+            con.commit();
         } catch (SQLException e) {
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                logger.error(ex.getMessage());
+            }
             logger.error(e.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException exception) {
+                    logger.error(exception.getMessage());
+                }
+            }
         }
         return userInvoicesList;
     }
 
-    private String getEngineerById(int id) {
+    private String getEngineerById(int id) throws SQLException {
         String name = "";
-        try (Connection con = connection;
-            PreparedStatement prepStmt = con.prepareStatement(SqlConst.GET_ENGINEER_BY_ID)) {
-            prepStmt.setInt(1, id);
-            ResultSet rs = prepStmt.executeQuery();
-            while (rs.next()) {
-                name = rs.getString("login");
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
+        PreparedStatement prepStmt = connection.prepareStatement(SqlConst.GET_ENGINEER_BY_ID);
+        prepStmt.setInt(1, id);
+        ResultSet rs = prepStmt.executeQuery();
+        while (rs.next()) {
+            name = rs.getString("login");
         }
         return name;
     }
@@ -169,7 +180,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {

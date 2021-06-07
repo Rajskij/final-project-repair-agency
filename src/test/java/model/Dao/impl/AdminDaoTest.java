@@ -17,8 +17,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class AdminDaoTest {
     Connection con;
@@ -41,46 +40,50 @@ public class AdminDaoTest {
     }
 
     @Test
-    public void testGetInvoiceById() {
+    public void getInvoiceByStatusTest() {
+        List<Invoice> invoiceList = adminDao.getInvoiceByStatus("Done");
+        assertEquals(invoiceList.size(), 1);
+    }
+
+    @Test
+    public void testGetInvoiceByIdTest() {
         Invoice invoice = adminDao.getInvoiceById(2);
         assertNotNull(invoice);
     }
 
     @Test
-    public void updateInvoiceEngineer() {
-        Invoice invoice = adminDao.getInvoiceById(2);
-        int currentEngineerId = invoice.getEngineer_id();
-        adminDao.updateInvoiceEngineer(27,2);
-        assertNotEquals(currentEngineerId, adminDao.getInvoiceById(2).getEngineer_id());
+    public void updateInvoiceEngineerTest() {
+        boolean result = adminDao.updateInvoiceEngineer(1,2);
+        assertTrue(result);
     }
 
     @Test
-    public void updateInvoicePrice() {
-
+    public void updateInvoicePriceTest() {
+        boolean result = adminDao.updateInvoicePrice("777", 1);
+        assertTrue(result);
     }
 
     @Test
-    public void updateInvoiceStatus() {
-
+    public void updateInvoiceStatusTest() {
+        boolean result = adminDao.updateInvoiceStatus("DONE", 1);
+        assertTrue(result);
     }
 
     @Test
-    public void selectAllInvoices() {
-
+    public void selectAllInvoicesTest() {
+        List<Invoice> invoices = adminDao.selectAllInvoices();
+        assertEquals(invoices.size(), 3);
     }
 
     @Test
-    public void getAllUsers() {
-
+    public void getAllUsersTest() {
+        List<User> list = adminDao.getAllUsers();
+        assertEquals(list.size(), 1);
     }
 
     @Test
-    public void setUsersWallet() {
-
-    }
-
-    @Test
-    public void getInvoiceByStatus() {
-
+    public void setUsersWalletTest() {
+        boolean result = adminDao.setUsersWallet("3", "70.00");
+        assertTrue(result);
     }
 }
